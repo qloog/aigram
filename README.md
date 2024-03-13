@@ -73,9 +73,6 @@ export default function Home() {
 
 修改 globals.css 和 tailwind.config.ts
 
-报错：`The `bg-dark-2` class does not exist.`
-修复：
-
 报错：`Error: Cannot find module 'tailwindcss-animate'`
 修改：安装 `tailwindcss-animate`
 
@@ -83,4 +80,18 @@ export default function Home() {
 npm install tailwindcss-animate
 ```
 
+### 添加登录和注册认证
+
+在 app 目录下创建:
+
+1. `(auth)/sign-in/[[...sign-in]]page.tsx` 和 `(auth)/sign-up/[[...sign-up]]/page.tsx` 文件，并新建 `(auth)/layout.tsx`。
+2. `(root)`, 并将 `app/layout.tsx` 和 `app/page.tsx` 移至 `(root)` 根目录下
+
+3. 在 clerk 新建应用，并在 `.env.local` 配置 key  
+4. 补充 `(auth)` 目录下的各 `page.tsx` 内容
+5. 新增中间件 `middleware.ts`
+
+> clerk 官方文档：
+> https://clerk.com/docs/quickstarts/setup-clerk
+> https://clerk.com/docs/quickstarts/nextjs
 
