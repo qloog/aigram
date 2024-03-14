@@ -95,3 +95,13 @@ npm install tailwindcss-animate
 > https://clerk.com/docs/quickstarts/setup-clerk
 > https://clerk.com/docs/quickstarts/nextjs
 
+### 增加组件
+
+- topbar
+- leftsidebar
+- bottombar
+- rightsidebar
+
+## References
+
+- svg图片转ico: https://favicon.io/

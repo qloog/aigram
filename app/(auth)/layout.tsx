@@ -1,12 +1,13 @@
+import { Metadata } from 'next';
 import { ClerkProvider } from '@clerk/nextjs'
 import { Inter } from 'next/font/google'
 
 import '../globals.css';
 
-export const metadata = {
-  title: 'aigcgram',
-  desscription: 'A community by AI-powered'
-}
+export const metadata: Metadata = {
+  title: 'Aigcgram',
+  description: 'A community by AI-powered'
+};
 
 const inter = Inter({ subsets: ["latin"] })
 
