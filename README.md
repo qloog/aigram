@@ -102,6 +102,17 @@ npm install tailwindcss-animate
 - bottombar
 - rightsidebar
 
+### 个人页面
+
+```bash
+# 初始化 shadcn-ui 并配置
+npx shadcn-ui@latest init
+
+npx shadcn-ui@latest add form
+```
+
+完善 `onboarding` 个人资料修改页面
+
 ## References
 
 - svg图片转ico: https://favicon.io/
