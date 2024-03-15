@@ -121,6 +121,12 @@ npx shadcn-ui@latest add form
 
 > uploadthing 官方文档：https://docs.uploadthing.com/
 
+### 增加链接 mongo 客户端
+
+```bash
+# libs/mongoose.ts
+```
+
 ## References
 
 - svg图片转ico: https://favicon.io/
