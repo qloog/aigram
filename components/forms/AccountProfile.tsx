@@ -21,6 +21,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { userValidation } from '@/lib/validations/user'
 import { ChangeEvent, useState } from 'react'
 import { isBase64Image } from '@/lib/utils'
+import { useUploadThing } from '@/lib/uploadthing'
  
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -42,6 +43,7 @@ interface Props {
 
 const AccountProfile = ({ user, btnTitle }: Props) => {
   const [files, setFiles] = useState<File[]>([])
+  const { startUpload } = useUploadThing("media");
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof userValidation>>({
@@ -78,12 +80,21 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   }
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof userValidation>) {
+  const onSubmit = async (values: z.infer<typeof userValidation>) => {
     // Do something with the form values.
     console.log(values)
     const blob = values.profile_photo;
     const hasImageChanged = isBase64Image(blob);
 
+    if (hasImageChanged) {
+      const imgRes = await startUpload(files);
+
+      if (imgRes && imgRes[0].url) {
+        values.profile_photo = imgRes[0].url;
+      }
+    }
+
+    // Update user profile
   }
 
   return (

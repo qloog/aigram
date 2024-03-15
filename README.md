@@ -113,6 +113,14 @@ npx shadcn-ui@latest add form
 
 完善 `onboarding` 个人资料修改页面
 
+### 上传图片
+
+1. 安装 `uploadthing`, 安装命令 `npm install uploadthing @uploadthing/react`
+2. 创建 `lib/uploadthing.ts`
+3. 创建 `api/uploadting/core.ts` 和 `api/uploadting/route.ts`
+
+> uploadthing 官方文档：https://docs.uploadthing.com/
+
 ## References
 
 - svg图片转ico: https://favicon.io/
