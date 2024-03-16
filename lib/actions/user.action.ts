@@ -12,6 +12,17 @@ interface Params {
   bio: string;
   path: string;
 }
+
+export async function fetchUser(userId: string) {
+  try {
+    connectToDB();
+
+    return await User.findOne({ id: userId });
+  } catch (error: any) {
+    throw new Error(`Failed to fetch user: ${error.message}`);
+  }
+}
+
 export async function updateUser({
   userId,
   username,
