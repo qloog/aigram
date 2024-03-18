@@ -20,7 +20,16 @@ const UserSchema = new mongoose.Schema({
   bio: {
     type: String,
   },
-
+  posts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Post',
+    }
+  ],
+  onboarded: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const User = mongoose.models.User || mongoose.model('User', UserSchema, 'user_info');

@@ -127,6 +127,15 @@ npx shadcn-ui@latest add form
 # libs/mongoose.ts
 ```
 
+### 操作用户信息
+
+- 获取用户信息
+- 修改用户信息
+
+### 创建post
+
+新增页面并增加对应内容
+
 ## References
 
 - svg图片转ico: https://favicon.io/
