@@ -38,3 +38,36 @@ export async function createPost({
     throw new Error(`Error creating post: ${error.message}`)
   }
 };
+
+export async function fetchPosts(page = 1, pageSize = 20) {
+  connectToDB();
+
+  // calculate the number of posts to skip
+  const skipAmount = (page - 1) * pageSize;
+
+  // fetch the posts that have no parents(top-level posts...)
+  const postsQuery = Post.find({ parentId: { $in : [null, undefined] }})
+    .sort({ createdAt: 'desc' })
+    .skip(skipAmount)
+    .limit(pageSize)
+    .populate({ 
+      path : 'author', 
+      model: User,
+    })
+    // .populate({ 
+    //   path : 'children',
+    //   populate: {
+    //     path : 'author',
+    //     model: User,
+    //     select: '_id name parentId image'
+    //   },
+    // });
+
+    const totalCount = await Post.countDocuments({ parentId: { $in : [null, undefined]}});
+
+    const posts = await postsQuery.exec();
+
+    const isNext = totalCount > skipAmount + posts.length;
+
+    return { posts, isNext, totalCount };
+}

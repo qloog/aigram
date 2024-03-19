@@ -136,6 +136,10 @@ npx shadcn-ui@latest add form
 
 新增页面并增加对应内容
 
+### 完善Home页面
+
+获取 post 列表并使用 `PostCard` 渲染展示
+
 ## References
 
 - svg图片转ico: https://favicon.io/
