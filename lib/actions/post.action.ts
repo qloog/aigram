@@ -71,3 +71,39 @@ export async function fetchPosts(page = 1, pageSize = 20) {
 
     return { posts, isNext, totalCount };
 }
+
+export async function fetchPostById(id: string) {
+  connectToDB();
+
+  try {
+    const post = await Post.findById(id)
+    .populate({ 
+      path : 'author', 
+      model: User,
+      select: '_id id name image'
+    })
+    .populate({ 
+      path : 'children',
+      populate: [
+        {
+          path : 'author',
+          model: User,
+          select: '_id name parentId image'
+        },
+        {
+          path : 'children',
+          model: Post,
+          populate: {
+            path : 'author',
+            model: User,
+            select: '_id id name parentId image'
+          }
+        }
+      ]
+    }).exec();
+
+    return post;
+  } catch (error: any) {
+    throw new Error(`Error fetching post: ${error.message}`)
+  }
+}

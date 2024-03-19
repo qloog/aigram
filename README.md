@@ -140,6 +140,10 @@ npx shadcn-ui@latest add form
 
 获取 post 列表并使用 `PostCard` 渲染展示
 
+### 增加post详情页
+
+- 展示post详情
+
 ## References
 
 - svg图片转ico: https://favicon.io/
