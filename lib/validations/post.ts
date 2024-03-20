@@ -7,3 +7,9 @@ export const postValidation = z.object({
   accountId: z
     .string(),
 });
+
+export const commentValidation = z.object({
+  post: z
+    .string()
+    .min(3, { message: "Minimum 3 characters." }),
+});

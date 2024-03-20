@@ -1,11 +1,12 @@
 import PostCard from '@/components/cards/PostCard'
+import CommentForm from '@/components/forms/CommentForm';
 import { fetchPostById } from '@/lib/actions/post.action';
 import { fetchUser } from '@/lib/actions/user.action';
 import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
-const page = async ({ params }: { id: string}) => {
+const page = async ({ params }: { params: { id: string } }) => {
   if (!params.id) return null;
 
   const user = await currentUser();
@@ -30,6 +31,32 @@ const page = async ({ params }: { id: string}) => {
           author={post.author}
           community={post.community}      
         /> 
+      </div>
+
+      <div className='mt-7'>
+        <CommentForm 
+          postId={JSON.stringify(post._id)}
+          currentUserImg={userInfo.image}
+          currentUserId={JSON.stringify(userInfo._id)}
+        />
+      </div>
+
+      {/* comment list */}
+      <div className='mt-10'>
+        {post.children.map((comment: any) => (
+          <PostCard 
+            key={comment._id}
+            id={comment._id}
+            currentUserId={user.id}
+            parentId={comment.parentId}
+            content={comment.text}
+            createdAt={comment.createdAt}
+            comments={comment.children}
+            author={comment.author}
+            community={comment.community}
+            isComment
+          />
+        ))}
       </div>
     </section>
   )

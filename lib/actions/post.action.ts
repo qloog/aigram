@@ -107,3 +107,40 @@ export async function fetchPostById(id: string) {
     throw new Error(`Error fetching post: ${error.message}`)
   }
 }
+
+export async function addCommentToPost(
+  postId: string, 
+  commentText: string,
+  userId: string,
+  path: string,
+) {
+  connectToDB();
+
+  try {
+    // find the original post by its id
+    const originalPost = await Post.findById(postId);
+    if (!originalPost) {
+      throw new Error('Post not found');
+    }
+
+    // create a new post with the comment text
+    const comment = new Post({
+      text: commentText,
+      author: userId,
+      parentId: postId,
+    });
+
+    // save the new comment
+    const savedComment = await comment.save();
+
+    // update the original post with the new comment
+    originalPost.children.push(savedComment._id);
+
+    // save the original post
+    await originalPost.save();
+
+    revalidatePath(path);
+  } catch (error: any) {
+    throw new Error(`Error adding comment to post: ${error.message}`)
+  }
+}

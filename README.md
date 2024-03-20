@@ -143,7 +143,10 @@ npx shadcn-ui@latest add form
 ### 增加post详情页
 
 - 展示post详情
+- 增加评论框
+- 评论列表
 
 ## References
 
 - svg图片转ico: https://favicon.io/
+- https://www.youtube.com/watch?v=O5cmLDVTgAs
