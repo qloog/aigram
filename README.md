@@ -146,6 +146,8 @@ npx shadcn-ui@latest add form
 - 增加评论框
 - 评论列表
 
+### 增加 profile 页
+
 ## References
 
 - svg图片转ico: https://favicon.io/

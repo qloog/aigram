@@ -53,3 +53,29 @@ export async function updateUser({
     throw new Error(`Failed to create/update user: ${error.message}`);
   }
 }
+
+export async function fetchUserPosts(userId: string) {
+  try {
+    connectToDB();
+
+    // Find all posts authored by user with the given userId
+    const posts = await User.findOne({ id: userId })
+      .populate({
+        path: 'posts',
+        model: 'Post',
+        populate: {
+          path: 'children',
+          model: 'Post',
+          populate: {
+            path: 'author',
+            model: 'User',
+            select: 'id name image'
+          }
+        }
+      });
+
+      return posts;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch user posts: ${error.message}`);
+  }
+}
