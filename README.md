@@ -148,6 +148,10 @@ npx shadcn-ui@latest add form
 
 ### 增加 profile 页
 
+### 增加 serarch 页
+
+- 默认获取自己发布过的帖子
+
 ## References
 
 - svg图片转ico: https://favicon.io/

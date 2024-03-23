@@ -16,7 +16,7 @@ export const sidebarLinks = [
   },
   {
     imgURL: "/assets/create.svg",
-    route: "/post/create",
+    route: "/posts/create",
     label: "Create Post",
   },
   {
