@@ -154,6 +154,10 @@ npx shadcn-ui@latest add form
 
 ### 增加 activity 页
 
+### 增加 communities 页
+
+增加 webhook/clerk
+
 ## References
 
 - svg图片转ico: https://favicon.io/

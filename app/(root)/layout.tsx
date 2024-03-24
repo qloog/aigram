@@ -11,7 +11,7 @@ import Bottombar from '@/components/shared/Bottombar';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Aigcgram',
+  title: 'Aigram',
   description: 'A community by AI-powered'
 };
 
