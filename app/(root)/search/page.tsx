@@ -11,8 +11,6 @@ const Page = async () => {
   const userInfo = await fetchUser(user.id);
   if (userInfo === null || !userInfo.onboarded) redirect('/onboarding');
 
-  console.log('---user.id---', user.id);
-
   // fetch users
   const result = await fetchUsers({
     userId: user.id,
@@ -20,8 +18,6 @@ const Page = async () => {
     pageNumber: 1,
     pageSize: 25,
   });
-
-  console.log('---------', result);
   
   return (
     <section>

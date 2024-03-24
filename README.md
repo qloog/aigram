@@ -152,7 +152,10 @@ npx shadcn-ui@latest add form
 
 - 默认获取自己发布过的帖子
 
+### 增加 activity 页
+
 ## References
 
 - svg图片转ico: https://favicon.io/
 - https://www.youtube.com/watch?v=O5cmLDVTgAs
+- [Instagram Style Route as Modal in Next.js](https://www.youtube.com/watch?v=EyjuRCxpf6Y)
