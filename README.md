@@ -159,6 +159,14 @@ npx shadcn-ui@latest add form
 增加 webhook/clerk
 
 
+## Deploy
+
+部署到 [Vercel](https://vercel.com/)
+
+1. 在 Vercel 导入
+2. 配置环境变量
+3. 配置 webhook/clerk
+
 ## FAQ
 
 1. 如果在 vercel 构建时报错，可以添加如下配置
@@ -168,12 +176,14 @@ npx shadcn-ui@latest add form
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // 新增此配置
-  typeScript: {
+  typescript: {
     ignoreBuildErrors: true,
   },
   ...
 }
 ```
+
+> https://nextjs.org/docs/app/api-reference/next-config-js/typescript
 
 ## References
 
