@@ -2,6 +2,34 @@ import { fetchUserPosts } from '@/lib/actions/user.action';
 import { redirect } from 'next/navigation';
 import React from 'react'
 import PostCard from '../cards/PostCard';
+import { fetchCommunityPosts } from '@/lib/actions/community.action';
+
+interface Result {
+  name: string;
+  image: string;
+  id: string;
+  posts: {
+    _id: string;
+    text: string;
+    parentId: string | null;
+    author: {
+      name: string;
+      image: string;
+      id: string;
+    };
+    community: {
+      id: string;
+      name: string;
+      image: string;
+    } | null;
+    createdAt: string;
+    children: {
+      author: {
+        image: string;
+      };
+    }[];
+  }[];
+}
 
 type Props = {
   currentUserId: string;
@@ -10,8 +38,13 @@ type Props = {
 }
 
 const PostsTab = async ({ currentUserId, accountId, accountType }: Props) => {
-  // fetch user posts
-  let result = await fetchUserPosts(accountId);
+  let result: Result;
+
+  if (accountType === 'Community') {
+    result = await fetchCommunityPosts(accountId);
+  } else {
+    result = await fetchUserPosts(accountId);
+  }
   if (!result) redirect('/');
 
   return (
@@ -32,7 +65,11 @@ const PostsTab = async ({ currentUserId, accountId, accountType }: Props) => {
               image: post.author.image,
             }
           } 
-          community={post.community} // todo
+          community={
+            accountType === "Community"
+              ? { name: result.name, id: result.id, image: result.image }
+              : post.community
+          } // todo
           createdAt={post.createdAt}
           comments={post.children}
         />

@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import PostForm from '@/components/forms/PostForm';
+import { redirect } from 'next/navigation';
+import { currentUser } from '@clerk/nextjs';
 import ProfileHeader from '@/components/shared/ProfileHeader';
 import { fetchUser } from '@/lib/actions/user.action';
-import { currentUser } from '@clerk/nextjs';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { redirect } from 'next/navigation';
 import { profileTabs } from '@/constants';
 import PostsTab from '@/components/shared/PostsTab';
 
@@ -30,7 +29,7 @@ async function Page({ params }: { params: { id: string } }) {
         <Tabs defaultValue='posts' className='w-full'>
           <TabsList className='tab'>
             {profileTabs.map((tab) => (
-              <TabsTrigger key={tab.value} value={tab.value} className='tab'>
+              <TabsTrigger key={tab.label} value={tab.value} className='tab'>
                 <Image 
                   src={tab.icon}
                   width={24}
@@ -49,15 +48,16 @@ async function Page({ params }: { params: { id: string } }) {
               </TabsTrigger>
             ))}
           </TabsList>
-          {profileTabs.map((tab) => (
-            <TabsContent key={`content-${tab.label}`} value={tab.value}>
-              <PostsTab 
-                currentUserId={user.id}
-                accountId={userInfo.id}
-                accountType='User'
-              />
-            </TabsContent>
-          ))}
+          <TabsContent value="posts" className='w-full text-light-1'>
+            <PostsTab 
+              currentUserId={user.id}
+              accountId={userInfo.id}
+              accountType='User'
+            />
+          </TabsContent>
+          <TabsContent value="replies" className='w-full text-light-1'>
+            developing...
+          </TabsContent>
         </Tabs>
       </div>
     </section>
