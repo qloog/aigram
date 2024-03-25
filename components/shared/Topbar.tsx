@@ -4,7 +4,6 @@ import { OrganizationSwitcher, SignOutButton, SignedIn } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 
 function Topbar() {
-  const isUserLoggedIn = true;
 
   return (
     <nav className='topbar'>
@@ -40,7 +39,7 @@ function Topbar() {
         />
       </div>
     </nav>
-  )
+  );
 }
 
 export default Topbar;
