@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea'
 
 import { postValidation } from '@/lib/validations/post'
 import { createPost } from '@/lib/actions/post.action';
+import { useOrganization } from '@clerk/nextjs';
 
 interface Props {
   user: {
@@ -27,6 +28,7 @@ interface Props {
 function PostForm({ userId }: { userId: string }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { organization } = useOrganization();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof postValidation>>({
@@ -41,7 +43,7 @@ function PostForm({ userId }: { userId: string }) {
     await createPost({
       text: values.post,
       author: userId, 
-      communityId: null,
+      communityId: organization ? organization.id : null,
       path: pathname
     });
 

@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import Post from '../models/post.model';
 import User from '../models/user.model';
 import { connectToDB } from '../mongoose';
+import Community from '../models/community.model';
 
 interface Params {
   text: string,
@@ -19,23 +20,35 @@ export async function createPost({
   try {
     connectToDB();
 
-  const createdPost = await Post.create({
-    text,
-    author,
-    community: null,
-    path,
-  });
+    const communityIdObject = await Community.findOne(
+      { id: communityId },
+      { _id: 1 }
+    );
 
-  // update user model
-  await User.findByIdAndUpdate(author, {
-    $push: {
-      posts: createdPost._id,
+    const createdPost = await Post.create({
+      text,
+      author,
+      community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
+      path,
+    });
+
+    // update user model
+    await User.findByIdAndUpdate(author, {
+      $push: {
+        posts: createdPost._id,
+      }
+    });
+
+    if (communityIdObject) {
+      // Update Community model
+      await Community.findByIdAndUpdate(communityIdObject, {
+        $push: { posts: createdPost._id },
+      });
     }
-  });
 
-  revalidatePath(path);
+    revalidatePath(path);
   } catch (error: any) {
-    throw new Error(`Error creating post: ${error.message}`)
+    throw new Error(`Failed to create post: ${error.message}`)
   }
 };
 
