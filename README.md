@@ -158,6 +158,23 @@ npx shadcn-ui@latest add form
 
 增加 webhook/clerk
 
+
+## FAQ
+
+1. 如果在 vercel 构建时报错，可以添加如下配置
+
+```typescript
+// next.config.mjs
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // 新增此配置
+  typeScript: {
+    ignoreBuildErrors: true,
+  },
+  ...
+}
+```
+
 ## References
 
 - svg图片转ico: https://favicon.io/
