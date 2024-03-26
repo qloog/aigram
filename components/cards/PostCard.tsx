@@ -12,6 +12,7 @@ interface Props {
   author: {
     id: string;
     name: string;
+    username: string;
     image: string;
   },
   community: {
@@ -25,7 +26,7 @@ interface Props {
       image: string;
     }
   }[],
-  isComment?: Boolean;
+  isComment?: boolean;
 }
 
 const PostCard = ({
@@ -61,7 +62,7 @@ const PostCard = ({
           <div className='flex w-full flex-col'>
             <Link href={`/profile/${author.id}`} className='w-fit'>
               <h4 className='cursor-pointer text-base-semibold text-light-1'>
-                {author.name}
+                {author.name} <span className='text-small-medium text-gray-1'>@{author.username}</span>
               </h4>
             </Link>
 

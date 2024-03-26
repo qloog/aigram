@@ -67,15 +67,20 @@ export async function fetchPosts(page = 1, pageSize = 20) {
       path : 'author', 
       model: User,
     })
-    // .populate({ 
-    //   path : 'children',
-    //   populate: {
-    //     path : 'author',
-    //     model: User,
-    //     select: '_id name parentId image'
-    //   },
-    // });
+    .populate({ 
+      path : 'community',
+      model: Community,
+    })
+    .populate({ 
+      path : 'children',
+      populate: {
+        path : 'author',
+        model: User,
+        select: '_id name parentId image'
+      },
+    });
 
+    // Count the total number of top-level posts i.e., posts that are not comments.
     const totalCount = await Post.countDocuments({ parentId: { $in : [null, undefined]}});
 
     const posts = await postsQuery.exec();
@@ -161,8 +166,13 @@ export async function fetchPostById(id: string) {
     .populate({ 
       path : 'author', 
       model: User,
-      select: '_id id name image'
+      select: '_id id name username image'
     })
+    .populate({
+      path: "community",
+      model: Community,
+      select: "_id id name image",
+    }) // Populate the community field with _id and name
     .populate({ 
       path : 'children',
       populate: [

@@ -5,15 +5,17 @@ import PostCard from '../cards/PostCard';
 import { fetchCommunityPosts } from '@/lib/actions/community.action';
 
 interface Result {
-  name: string;
-  image: string;
   id: string;
+  name: string;
+  username: string;
+  image: string;
   posts: {
     _id: string;
     text: string;
     parentId: string | null;
     author: {
       name: string;
+      username: string;
       image: string;
       id: string;
     };
@@ -58,10 +60,11 @@ const PostsTab = async ({ currentUserId, accountId, accountType }: Props) => {
           content={post.text}
           author={
             accountType === 'User'
-            ? { id: result.id, name: result.name, image: result.image }
+            ? { id: result.id, name: result.name, username: result.username, image: result.image }
             : {
               id: post.author.id,
               name: post.author.name,
+              username: post.author.username,
               image: post.author.image,
             }
           } 

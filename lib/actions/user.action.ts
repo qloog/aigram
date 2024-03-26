@@ -5,6 +5,7 @@ import User from '../models/user.model';
 import { connectToDB } from '../mongoose'
 import { FilterQuery, SortOrder } from 'mongoose';
 import Post from '../models/post.model';
+import Community from '../models/community.model';
 
 interface Params {
   userId: string;
@@ -65,15 +66,22 @@ export async function fetchUserPosts(userId: string) {
       .populate({
         path: 'posts',
         model: Post,
-        populate: {
-          path: 'children',
-          model: Post,
-          populate: {
-            path: 'author',
-            model: User,
-            select: 'id name image'
-          }
-        }
+        populate: [
+          {
+            path: "community",
+            model: Community,
+            select: "name id image _id", // Select the "name" and "_id" fields from the "Community" model
+          },
+          {
+            path: 'children',
+            model: Post,
+            populate: {
+              path: 'author',
+              model: User,
+              select: 'id name username image'
+            }
+          },
+        ],
       });
 
       return posts;
